@@ -122,7 +122,7 @@ static void
         xbox_controller_view->view,
         XboxControllerViewModel * model,
         {
-            if(event->type == InputTypePress) {
+            if(event->type == InputTypePress || event->type == InputTypeRepeat) {
                 if(event->key == InputKeyUp) {
                     model->up_pressed = true;
                     send_xbox_ir(0xE11E, xbox_controller_view->notifications);
@@ -155,13 +155,6 @@ static void
                     model->ok_pressed = false;
                 } else if(event->key == InputKeyBack) {
                     model->back_pressed = false;
-                }
-            } else if(event->type == InputTypeShort) {
-                if(event->key == InputKeyBack) {
-                    // furi_hal_hid_kb_press(HID_KEYBOARD_DELETE);
-                    // furi_hal_hid_kb_release(HID_KEYBOARD_DELETE);
-                    // furi_hal_hid_consumer_key_press(HID_CONSUMER_AC_BACK);
-                    // furi_hal_hid_consumer_key_release(HID_CONSUMER_AC_BACK);
                 }
             }
         },
