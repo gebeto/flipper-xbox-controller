@@ -15,7 +15,7 @@ jobs:
           - name: dev channel
             sdk-channel: dev
 
-    name: 'ufbt: Build for ${{ matrix.name }}'
+    name: "ufbt: Build for ${{ matrix.name }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
           sdk-channel: ${{ matrix.sdk-channel }}
 
       - name: Upload app artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}-${{ steps.build-app.outputs.suffix }}
           path: ${{ steps.build-app.outputs.fap-artifacts }}

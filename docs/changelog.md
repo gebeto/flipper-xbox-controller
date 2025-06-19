@@ -1,3 +1,9 @@
+## v1.4
+
+SDK version bump
+
+- Add long press for all the buttons
+
 ## v1.3
 
 SDK version bump

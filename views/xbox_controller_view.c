@@ -105,12 +105,12 @@ const NotificationSequence sequence_blink_purple_50 = {
     NULL,
 };
 
-void send_xbox_ir(uint32_t command, NotificationApp* notifications) {
+void send_xbox_ir(uint32_t command, NotificationApp* notifications, bool repeat) {
     InfraredMessage* message = malloc(sizeof(InfraredMessage));
     message->protocol = InfraredProtocolNECext;
     message->address = 0xD880;
     message->command = command;
-    message->repeat = false;
+    message->repeat = repeat;
     notification_message(notifications, &sequence_blink_purple_50);
     infrared_send(message, 2);
     free(message);
@@ -123,24 +123,25 @@ static void
         XboxControllerViewModel * model,
         {
             if(event->type == InputTypePress || event->type == InputTypeRepeat) {
+                bool repeat = event->type == InputTypeRepeat;
                 if(event->key == InputKeyUp) {
                     model->up_pressed = true;
-                    send_xbox_ir(0xE11E, xbox_controller_view->notifications);
+                    send_xbox_ir(0xE11E, xbox_controller_view->notifications, repeat);
                 } else if(event->key == InputKeyDown) {
                     model->down_pressed = true;
-                    send_xbox_ir(0xE01F, xbox_controller_view->notifications);
+                    send_xbox_ir(0xE01F, xbox_controller_view->notifications, repeat);
                 } else if(event->key == InputKeyLeft) {
                     model->left_pressed = true;
-                    send_xbox_ir(0xDF20, xbox_controller_view->notifications);
+                    send_xbox_ir(0xDF20, xbox_controller_view->notifications, repeat);
                 } else if(event->key == InputKeyRight) {
                     model->right_pressed = true;
-                    send_xbox_ir(0xDE21, xbox_controller_view->notifications);
+                    send_xbox_ir(0xDE21, xbox_controller_view->notifications, repeat);
                 } else if(event->key == InputKeyOk) {
                     model->ok_pressed = true;
-                    send_xbox_ir(0x9966, xbox_controller_view->notifications);
+                    send_xbox_ir(0x9966, xbox_controller_view->notifications, repeat);
                 } else if(event->key == InputKeyBack) {
                     model->back_pressed = true;
-                    send_xbox_ir(0x9A65, xbox_controller_view->notifications);
+                    send_xbox_ir(0x9A65, xbox_controller_view->notifications, repeat);
                 }
             } else if(event->type == InputTypeRelease) {
                 if(event->key == InputKeyUp) {
