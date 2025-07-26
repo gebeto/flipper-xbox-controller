@@ -32,6 +32,7 @@ void usb_hid_submenu_callback(void* context, uint32_t index) {
         message->address = 0xD880;
         message->command = 0xD02F;
         message->repeat = false;
+        notification_message(app->notifications, &sequence_blink_purple_50);
         infrared_send(message, 2);
         free(message);
     }
@@ -119,3 +120,10 @@ int32_t xbox_controller_app(void* p) {
 
     return 0;
 }
+
+const NotificationSequence sequence_blink_purple_50 = {
+    &message_red_255,
+    &message_blue_255,
+    &message_delay_50,
+    NULL,
+};

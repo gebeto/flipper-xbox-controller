@@ -30,3 +30,5 @@ typedef enum {
     UsbHidViewXboxController,
     UsbHidViewExitConfirm,
 } UsbHidView;
+
+extern const NotificationSequence sequence_blink_purple_50;
