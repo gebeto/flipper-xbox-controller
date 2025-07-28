@@ -31,14 +31,7 @@ void usb_hid_submenu_callback(void* context, uint32_t index) {
         app->view_id = UsbHidViewMediaController;
         view_dispatcher_switch_to_view(app->view_dispatcher, UsbHidViewMediaController);
     } else if(index == XboxControllerSubmenuIndexPower) {
-        InfraredMessage* message = malloc(sizeof(InfraredMessage));
-        message->protocol = InfraredProtocolNECext;
-        message->address = 0xD880;
-        message->command = 0xD02F;
-        message->repeat = false;
-        notification_message(app->notifications, &sequence_blink_purple_50);
-        infrared_send(message, 2);
-        free(message);
+        send_xbox_ir(0xD02F, app->notifications, false);
     }
 }
 
@@ -158,4 +151,5 @@ void send_xbox_ir(uint32_t command, NotificationApp* notifications, bool repeat)
     notification_message(notifications, &sequence_blink_purple_50);
     infrared_send(message, 2);
     free(message);
+    dolphin_deed(DolphinDeedIrSend);
 }

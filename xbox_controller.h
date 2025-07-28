@@ -14,6 +14,8 @@
 #include "views/media_controller_view.h"
 #include "xc_icons.h"
 
+#include <dolphin/dolphin.h>
+
 // this should be used as global state
 // we can store different things here
 typedef struct {
