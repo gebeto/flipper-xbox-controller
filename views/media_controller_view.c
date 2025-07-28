@@ -20,19 +20,17 @@ typedef struct {
 } MediaControllerViewModel;
 
 static void
-    media_controller_view_draw_arrow(Canvas* canvas, uint8_t x, uint8_t y, CanvasDirection dir) {
+    media_controller_view_draw_icon(Canvas* canvas, uint8_t x, uint8_t y, CanvasDirection dir) {
     if(dir == CanvasDirectionBottomToTop) {
-        canvas_draw_triangle(canvas, x - 2, y - 2, 5, 3, dir);
-        canvas_draw_line(canvas, x - 2, y - 3, x - 2, y + 4);
+        canvas_draw_icon(canvas, x - 7, y - 5, &I_Volup_Icon_11x11);
     } else if(dir == CanvasDirectionTopToBottom) {
-        canvas_draw_triangle(canvas, x - 2, y + 2, 5, 3, dir);
-        canvas_draw_line(canvas, x - 2, y - 4, x - 2, y + 3);
+        canvas_draw_icon(canvas, x - 7, y - 5, &I_Voldown_Icon_11x11);
     } else if(dir == CanvasDirectionRightToLeft) {
-        canvas_draw_triangle(canvas, x - 4, y, 5, 3, dir);
-        canvas_draw_line(canvas, x + 2, y, x - 5, y);
+        canvas_draw_triangle(canvas, x, y, 8, 5, CanvasDirectionRightToLeft);
+        canvas_draw_line(canvas, x - 5, y - 4, x - 5, y + 4);
     } else if(dir == CanvasDirectionLeftToRight) {
-        canvas_draw_triangle(canvas, x, y, 5, 3, dir);
-        canvas_draw_line(canvas, x - 6, y, x + 1, y);
+        canvas_draw_triangle(canvas, x - 4, y, 8, 5, CanvasDirectionLeftToRight);
+        canvas_draw_line(canvas, x + 1, y - 4, x + 1, y + 4);
     }
 }
 
@@ -47,7 +45,7 @@ static void media_controller_view_draw_arrow_button(
         elements_slightly_rounded_box(canvas, x + 3, y + 2, 13, 13);
         canvas_set_color(canvas, ColorWhite);
     }
-    media_controller_view_draw_arrow(canvas, x + 11, y + 8, direction);
+    media_controller_view_draw_icon(canvas, x + 11, y + 8, direction);
     canvas_set_color(canvas, ColorBlack);
 }
 
