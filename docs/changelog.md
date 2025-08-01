@@ -1,3 +1,7 @@
+## v1.5
+
+- Add Media control view by @teohumeau
+
 ## v1.4
 
 SDK version bump
