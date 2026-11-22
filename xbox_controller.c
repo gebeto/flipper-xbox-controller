@@ -8,6 +8,7 @@
 enum XboxControllerSubmenuIndex {
     XboxControllerSubmenuIndexXboxOne,
     XboxControllerSubmenuIndexMediaController,
+    XboxControllerSubmenuIndexHome,
     XboxControllerSubmenuIndexPower
 };
 
@@ -30,6 +31,8 @@ void usb_hid_submenu_callback(void* context, uint32_t index) {
     } else if(index == XboxControllerSubmenuIndexMediaController) {
         app->view_id = UsbHidViewMediaController;
         view_dispatcher_switch_to_view(app->view_dispatcher, UsbHidViewMediaController);
+    } else if(index == XboxControllerSubmenuIndexHome) {
+        send_xbox_ir(0x9B64, app->notifications, false);
     } else if(index == XboxControllerSubmenuIndexPower) {
         send_xbox_ir(0xD02F, app->notifications, false);
     }
@@ -68,6 +71,8 @@ XboxController* xbox_controller_app_alloc() {
         XboxControllerSubmenuIndexMediaController,
         usb_hid_submenu_callback,
         app);
+    submenu_add_item(
+        app->submenu, "Home", XboxControllerSubmenuIndexHome, usb_hid_submenu_callback, app);
     submenu_add_item(
         app->submenu, "Power", XboxControllerSubmenuIndexPower, usb_hid_submenu_callback, app);
     view_set_previous_callback(submenu_get_view(app->submenu), usb_hid_exit);
